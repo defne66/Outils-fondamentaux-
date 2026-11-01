@@ -58,8 +58,6 @@ print(nombre_de_chiffres(10 ** 60))
 
 
 Exercice5.1
-import math
-
 def heron(a, tolerance=1e-12):
     """Racine carrée de a par la méthode de Héron."""
     if a < 0:
