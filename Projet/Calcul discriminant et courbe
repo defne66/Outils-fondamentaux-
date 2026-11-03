@@ -8,10 +8,7 @@ b = float(input("Entrez la valeur de b : "))
 c = float(input("Entrez la valeur de c : "))
 
 if a == 0:
-    print(
-        "Attention : 'a' vaut 0, ce n'est plus un polynôme du second degré (c'est"
-        " une droite) !"
-    )
+    print('a' vaut 0, ce n'est plus un polynôme du second degré !)
     if b != 0:
         print(f"Racine unique : x = {-c / b}")
     else:
