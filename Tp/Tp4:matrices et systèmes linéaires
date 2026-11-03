@@ -1,1 +1,85 @@
+exercice1.1
+
+def transposee(A):
+    """Transposée de la matrice A, donnée comme liste de lignes."""
+    lignes = len(A)
+    colonnes = len(A[0])
+    return [[A[i][j] for i in range(lignes)] for j in range(colonnes)]
+
+print(transposee([[1, 2, 3], [4, 5, 6]]))
+
+exercice2.1
+
+def produit(A, B):
+    """Produit matriciel A x B, en Python pur."""
+    n, p = len(A), len(A[0])
+    if len(B) != p:
+        raise ValueError("dimensions impossibles")
+    q = len(B[0])
+    C = [[0] * q for _ in range(n)]
+    else
+    for i in range(n):
+        for j in range(q):
+            somme = 0
+            for k in range(p):
+                somme = somme + A[i][k] * B[k][j]
+            C[i][j] = somme
+    return C
+
+identite = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+A = [[1, 2, 2], [1, 3, -2], [3, 5, 8]]
+print(produit(A, identite) == A)
+
+exercice2.2
+
+import random
+import time
+random.seed(42)
+def matrice_aleatoire(n):
+    return [[random.random() for _ in range(n)] for _ in range(n)]
+
+for n in (40, 80, 120):
+    A = matrice_aleatoire(n)
+    B = matrice_aleatoire(n)
+    debut = time.perf_counter()
+    produit(A, B)
+    print(f"n = {n:>3} : {time.perf_count() - debut:.4f} s")
+print(A,B[[1, 2], [3, 4]], [[0, 1], [1, 0]])
+
+exercice3.1
+n = 120
+A = matrice_aleatoire(n)
+B = matrice_aleatoire(n)
+
+debut = time.perf_counter()
+produit(A, B)
+t_python = time.perf_counter() - debut
+
+An, Bn = np.array(A), np.array(B)
+debut = time.perf_counter()
+An @ Bn
+t_numpy = time.perf_counter() - debut
+
+print(f"python pur {t_python:.4f} s")
+print(f"numpy      {t_numpy:.6f} s")
+print("rapport :", round(t_python / max(t_numpy, 1e-9)))
+
+exercice8.1
+from fractions import Fraction
+
+def hilbert_exacte(n):
+    return [[Fraction(1, i + j + 1) for j in range(n)] for i in range(n)]
+
+n = 12
+H_exacte = hilbert_exacte(n)
+b_exact = [sum(ligne) for ligne in H_exacte]
+
+try:
+    resoudre(H_exacte, b_exact)
+except ValueError as erreur:
+    print("premier essai :", erreur)
+
+x_exact = resoudre(H_exacte, b_exact, tolerance=0)
+print(x_exact)
+print(all(v == 1 for v in x_exact))
 
