@@ -1,1 +1,99 @@
+exercice 1
+def diviseurs(n):
+    """Liste croissante des diviseurs positifs de n."""
+    resultat = []
+    for d in range(1, n + 1):
+        if n % d == 0:
+            resultat.append(d)
+    return resultat
 
+print(diviseurs(28))
+print(diviseurs(97))
+
+exercice2.1
+def pgcd_naif(a, b):
+    """PGCD par essai de tous les diviseurs possibles."""
+    meilleur = 1
+    for d in range(1, min(a, b) + 1):
+        if a % d == 0 and b % d == 0:
+            meilleur = d
+    return meilleur
+def pgcd(a, b):
+    """PGCD par l'algorithme d'Euclide."""
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+print(pgcd_naif(1071, 462), pgcd(1071, 462))
+
+
+exercice3.1
+for n in (10_007, 100_003, 1_000_003):
+    t_naif = duree(est_premier_naif, n)
+    t_rac = duree(est_premier, n)
+    print(f"{n:>9} : naif {t_naif:.5f} s | racine {t_rac:.6f} s")
+
+exercice4.1
+debut = time.perf_counter()
+p = crible(100_000)
+t_crible = time.perf_counter() - debut
+
+debut = time.perf_counter()
+combien = sum(1 for n in range(100_001) if est_premier(n))
+t_un_par_un = time.perf_counter() - debut
+
+print(len(p), combien)
+print(f"crible {t_crible:.4f} s | un par un {t_un_par_un:.4f} s")
+
+exercice5.1
+def facteurs(n):
+    """Facteurs premiers de n, avec multiplicité, dans l'ordre croissant."""
+    resultat = []
+    d = 2
+    while d * d <= n:
+        while n % d == 0:
+            resultat.append(d)
+            n = n // d
+        d = d + 1
+    if n > 1:
+        resultat.append(n)
+    return resultat
+
+f = facteurs(360)
+print(f)
+
+produit = 1
+for x in f:
+    produit = produit * x
+print(produit)
+
+exercice6.1
+for n in (20, 25, 30):
+    print(f"F({n}) : {duree(fibonacci_recursif, n):.4f} s")
+
+exercice6.2
+appels = {}
+
+def fibonacci_compte(n):
+    appels[n] = appels.get(n, 0) + 1
+    if n < 2:
+        return n
+    return fibonacci_compte(n - 1) + fibonacci_compte(n - 2)
+
+resultat = fibonacci_compte(30)
+print("F(30) =", resultat)
+print("appels a F(1) :", appels[1])
+print("appels en tout :", sum(appels.values()))
+
+exercice6.3
+def fibonacci(n):
+    """F(n) par une boucle : deux variables suffisent."""
+    precedent, courant = 0, 1
+    for _ in range(n):
+        precedent, courant = courant, precedent + courant
+    return precedent
+
+print(all(fibonacci(n) == fibonacci_recursif(n) for n in range(26)))
+print(f"F(30) en {duree(fibonacci, 30):.6f} s")
+grand = fibonacci(10_000)
+print(len(str(grand)), "chiffres")
